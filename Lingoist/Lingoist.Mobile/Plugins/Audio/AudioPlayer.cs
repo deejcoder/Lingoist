@@ -18,8 +18,23 @@ namespace Lingoist.Mobile.Plugins.Audio
 
             try
             {
-                AsyncAudioPlayer player = this.AudioManager.CreateAsyncPlayer(stream, new AudioPlayerOptions());
-                await player.PlayAsync(cancellationToken.Value);
+                // save to file
+                var filePath = Path.Combine(FileSystem.CacheDirectory, "audio.mp3");
+                using (var fileStream = File.Create(filePath))
+
+                {
+                    await stream.CopyToAsync(fileStream, cancellationToken.Value);
+                }
+
+                // Reset the stream position to the beginning
+                stream.Position = 0;                                                
+
+                Plugin.Maui.Audio.IAudioPlayer player = this.AudioManager.CreatePlayer(filePath);
+                player.Volume = 1.0;
+                player.Seek(0);
+                player.SetSource(stream);
+                player.Play();
+                //await player.PlayAsync(cancellationToken.Value);
             }
             catch(Exception ex)
             {

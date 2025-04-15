@@ -45,13 +45,21 @@ namespace Lingoist.ApiClient.Features.TextToSpeech
 
             using var stream = await response.Content.ReadAsStreamAsync(cancellationToken.Value);
 
-            var buffer = new byte[8192];
+            // the stream has a base 64 string
+            using var reader = new StreamReader(stream);
+            using var memoryStream = new MemoryStream();
+
+            byte[] buffer = new byte[8192]; // 8 KB buffer size
+
             int bytesRead;
 
             while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken.Value)) > 0)
             {
-                cancellationToken.Value.ThrowIfCancellationRequested();
-                yield return buffer.Take(bytesRead).ToArray();
+                // Convert the byte array to a base64 string
+                string base64String = Convert.ToBase64String(buffer, 0, bytesRead);
+                // Convert the base64 string back to a byte array
+                byte[] audioBytes = Convert.FromBase64String(base64String);
+                yield return audioBytes;
             }
         }
 
@@ -66,7 +74,15 @@ namespace Lingoist.ApiClient.Features.TextToSpeech
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/update-history");
             var response = await HttpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsByteArrayAsync(cancellationToken.Value);
+            string base64string = await response.Content.ReadAsStringAsync(cancellationToken.Value);
+
+            if (string.IsNullOrWhiteSpace(base64string))
+            {
+                return Array.Empty<byte>();
+            }
+
+            byte[] bytes = Convert.FromBase64String(base64string);
+            return bytes;
         }
     }
 }

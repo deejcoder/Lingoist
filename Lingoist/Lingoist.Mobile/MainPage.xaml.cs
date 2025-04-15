@@ -33,19 +33,17 @@ namespace Lingoist.Mobile
         {
             try
             {
-                byte[] bytes = await Tts.GetHistory(); //Tts.Run("Guten Tag. Wie geht es dir?", "iP95p4xoKVk53GoZ742B");
+                IAsyncEnumerable<byte[]> bytes = Tts.Run("Guten Tag. Ich bin gut", "iP95p4xoKVk53GoZ742B");
 
                 // Play the audio
                 // Convert the async enumerable to a stream
                 using (var stream = new MemoryStream())
                 {
                     // Read the bytes from the async enumerable and write them to the stream
-                    //foreach (var chunk in bytes)
-                    //{
-
-                    //}
-                    await stream.WriteAsync(bytes);
-
+                    await foreach (var chunk in bytes)
+                    {
+                        await stream.WriteAsync(chunk);
+                    }
                     // Reset the stream position to the beginning
                     stream.Position = 0;
                     // Play the audio from the stream

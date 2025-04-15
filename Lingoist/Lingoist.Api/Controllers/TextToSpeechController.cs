@@ -1,6 +1,7 @@
 ﻿using Lingoist.Backend.Application.Features.TextToSpeech;
 using Lingoist.Backend.Providers.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace Lingoist.Api.Controllers
 {    
@@ -22,18 +23,21 @@ namespace Lingoist.Api.Controllers
         }
 
         [HttpPost("synthesize")]
-        public async IAsyncEnumerable<byte[]> Synthesize([FromBody] TextToSpeechRequest request)
+        public async IAsyncEnumerable<string> Synthesize([FromBody] TextToSpeechRequest request)
         {
             await foreach (var chunk in TextToSpeechService.TextToSpeech(request))
             {
-                yield return chunk;
+                yield return Convert.ToBase64String(chunk);
             }
         }
 
         [HttpPost("update-history")]
-        public async Task<byte[]?> UpdateHistory()
+        public async Task<string> UpdateHistory()
         {
-            return await TextToSpeechService.UpdateHistory();            
+            byte[]? bytes = await TextToSpeechService.UpdateHistory();
+            bytes ??= [];
+
+            return Convert.ToBase64String(bytes);
         }
     }
 }
