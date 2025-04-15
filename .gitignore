@@ -398,3 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Lingoist/Lingoist.Api/appsettings.Development.json
