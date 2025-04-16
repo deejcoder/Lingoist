@@ -68,6 +68,13 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Lingoist.ApiClient\Lingoist.ApiClient.csproj" />
 	  <ProjectReference Include="..\Lingoist.Mobile.Application\Lingoist.Mobile.Application.csproj" />
+	  <ProjectReference Include="..\Lingoist.Mobile.Controls\Lingoist.Mobile.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\AddEditPracticeSetPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

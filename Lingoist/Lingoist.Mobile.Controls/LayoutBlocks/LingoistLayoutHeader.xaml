@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Lingoist.Mobile.UI.LayoutBlocks"
+             x:Class="Lingoist.Mobile.UI.LayoutBlocks.LingoistLayoutHeader"
+             x:Name="this">
+    <HorizontalStackLayout>
+        <Label Text="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutHeader}" />
+    </HorizontalStackLayout>
+</ContentView>

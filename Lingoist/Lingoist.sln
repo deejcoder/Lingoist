@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.ApiClient", "Lingo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.Mobile.Application", "Lingoist.Mobile.Application\Lingoist.Mobile.Application.csproj", "{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.Mobile.UI", "Lingoist.Mobile.Controls\Lingoist.Mobile.UI.csproj", "{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{76EFB206-C261-45EF-A928-581CFD085F9E} = {F622C363-A5B5-4AA5-BB10-8515E95AE17E}
 		{C7F8D142-CD73-4C40-89B0-9A8471E71988} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7937EEB2-56AB-47DA-8B22-C95468E9A2E1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAAE55A2-B51C-4143-8D05-8D3672C2335C}

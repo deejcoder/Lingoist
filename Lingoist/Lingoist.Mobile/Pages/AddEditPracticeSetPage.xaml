@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lingo:LingoistPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lingo="http://lingoist.io/maui"
+             x:Class="Lingoist.Mobile.Pages.AddEditPracticeSetPage">
+
+    <!-- Rename to LingoistLayout -->
+    <lingo:LingoistLayoutBase Title="AddEditPracticeSetPage">
+        
+        <!-- Add LingoistHeaderContent with ILingoistHeaderView -->
+        
+        <lingo:LingoistLayoutBase.LayoutContent>
+            <!-- Change this to accept ILingoistLayoutView-->
+            <VerticalStackLayout>
+                <Label Text="Content" />
+            </VerticalStackLayout>
+        </lingo:LingoistLayoutBase.LayoutContent>
+
+        <lingo:LingoistLayoutBase.FooterContent>
+            <!-- Change this to accept ILingoistFooterView -->
+            <ContentView>
+                <Label Text="Footer" />
+            </ContentView>
+        </lingo:LingoistLayoutBase.FooterContent>
+        
+    </lingo:LingoistLayoutBase>
+</lingo:LingoistPage>
