@@ -2,4 +2,5 @@
 
 [assembly: XmlnsDefinition("http://lingoist.io/maui", "Lingoist.Mobile.UI.Pages")]
 [assembly: XmlnsDefinition("http://lingoist.io/maui", "Lingoist.Mobile.UI.Layouts")]
+[assembly: XmlnsDefinition("http://lingoist.io/maui", "Lingoist.Mobile.UI.LayoutBlocks")]
 [assembly: XmlnsDefinition("http://lingoist.io/maui", "Lingoist.Mobile.UI.Controls")]

@@ -25,11 +25,6 @@ public partial class LingoistLayoutBase : ContentView
 
     private static void LayoutContentPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if(bindable is LingoistLayoutBase layout)
-        {
-            layout.DestroyLayoutContent();
-            layout.ApplyLayoutContent();
-        }
     }
     
     public static readonly BindableProperty FooterContentProperty =
@@ -54,28 +49,4 @@ public partial class LingoistLayoutBase : ContentView
 	{
 		InitializeComponent();
 	}
-
-    private void DestroyLayoutContent()
-    {
-        if (this.LayoutContentContainer != null)
-        {
-            this.LayoutContentContainer.DestroyView();
-            this.LayoutContentContainer = null;
-        }
-    }
-
-    private void ApplyLayoutContent()
-    {
-        if (LayoutContent != null)
-        {
-            this.LayoutContentContainer.Content = LayoutContent;
-
-            // forward the binding context
-            LayoutContent.BindingContext = this.BindingContext;
-        }
-        else
-        {
-            this.LayoutContentContainer.Content = new VerticalStackLayout();
-        }
-    }
 }

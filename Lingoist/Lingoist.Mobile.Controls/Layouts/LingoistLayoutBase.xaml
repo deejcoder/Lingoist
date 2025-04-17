@@ -4,19 +4,22 @@
              xmlns:blocks="clr-namespace:Lingoist.Mobile.UI.LayoutBlocks"
              xmlns:local="clr-namespace:Lingoist.Mobile.UI.Layouts"
              x:Name="this"
-             x:Class="Lingoist.Mobile.UI.Layouts.LingoistLayoutBase">
+             x:Class="Lingoist.Mobile.UI.Layouts.LingoistLayoutBase"
+             Background="Black">
+    
     <Grid RowDefinitions="Auto,*,Auto">
 
         <!-- Header -->
-        <blocks:LingoistLayoutHeader Title="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutBase}" />
+        <blocks:LingoistLayoutHeader Grid.Row="0" Title="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutBase}" />
 
         <!-- Content -->
         <Grid Grid.Row="1">
-            <ContentView x:Name="LayoutContentContainer" />
+            <ContentView Content="{Binding LayoutContent, Source={x:Reference this}, x:DataType=local:LingoistLayoutBase}" />
         </Grid>
         
         <!-- Footer -->
-        <blocks:LingoistLayoutFooter IsFooterVisible="{Binding IsFooterVisible, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" 
+        <blocks:LingoistLayoutFooter Grid.Row="2" 
+                                     IsFooterVisible="{Binding IsFooterVisible, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" 
                                      Content="{Binding FooterContent, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" />
     </Grid>
 </ContentView>

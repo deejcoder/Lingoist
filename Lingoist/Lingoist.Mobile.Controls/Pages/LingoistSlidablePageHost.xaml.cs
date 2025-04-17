@@ -54,6 +54,7 @@ public partial class LingoistSlidablePageHost : ContentView
                 currentView.IsVisible = false;
             }
 
+            nextView.ZIndex = 1000;
             nextView.IsVisible = true;
             await nextView.TranslateTo(0, 0, 400, Easing.CubicOut);
         }

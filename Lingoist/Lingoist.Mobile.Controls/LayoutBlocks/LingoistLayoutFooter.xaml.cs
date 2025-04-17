@@ -40,9 +40,12 @@ public partial class LingoistLayoutFooter : ContentView
     private static void IsFooterVisibleChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (LingoistLayoutFooter)bindable;
-        control.FooterContent.IsVisible = (bool)newValue;
+        if (control.FooterContent != null)
+        {
+            control.FooterContent.IsVisible = (bool)newValue;
+        }
     }
-    
+
     public static readonly BindableProperty EnableAnimationsProperty =
         BindableProperty.Create(nameof(EnableAnimations), typeof(bool), typeof(LingoistLayoutFooter), true);
 
@@ -53,9 +56,9 @@ public partial class LingoistLayoutFooter : ContentView
     }
 
     public LingoistLayoutFooter()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private void DestroyFooterContent()
     {
@@ -77,7 +80,7 @@ public partial class LingoistLayoutFooter : ContentView
 
     private void AnimateOnAppearing()
     {
-        if(!EnableAnimations)
+        if (!EnableAnimations)
             return;
 
         this.Dispatcher.Dispatch(async () =>
