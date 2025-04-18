@@ -4,10 +4,9 @@
              xmlns:blocks="clr-namespace:Lingoist.Mobile.UI.LayoutBlocks"
              xmlns:local="clr-namespace:Lingoist.Mobile.UI.Layouts"
              x:Name="this"
-             x:Class="Lingoist.Mobile.UI.Layouts.LingoistLayoutBase"
-             Background="Black">
+             x:Class="Lingoist.Mobile.UI.Layouts.LingoistLayoutBase">
     
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="20">
 
         <!-- Header -->
         <blocks:LingoistLayoutHeader Grid.Row="0" Title="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutBase}" />
@@ -20,6 +19,6 @@
         <!-- Footer -->
         <blocks:LingoistLayoutFooter Grid.Row="2" 
                                      IsFooterVisible="{Binding IsFooterVisible, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" 
-                                     Content="{Binding FooterContent, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" />
+                                     FooterContent="{Binding FooterContent, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" />
     </Grid>
 </ContentView>

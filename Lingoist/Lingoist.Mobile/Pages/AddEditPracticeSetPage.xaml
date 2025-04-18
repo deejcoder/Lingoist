@@ -5,23 +5,27 @@
              x:Class="Lingoist.Mobile.Pages.AddEditPracticeSetPage">
 
     <!-- Rename to LingoistLayout -->
-    <lingo:LingoistLayoutBase Title="AddEditPracticeSetPage">
-        
+    <lingo:LingoistLayoutBase Title="AddEditPracticeSetPage" x:Name="layout" IsFooterVisible="False">
+
         <!-- Add LingoistHeaderContent with ILingoistHeaderView -->
-        
+
         <lingo:LingoistLayoutBase.LayoutContent>
             <!-- Change this to accept ILingoistLayoutView-->
-            <VerticalStackLayout>
-                <Label Text="Content" />
+            <VerticalStackLayout VerticalOptions="Start" >
+                <Label HorizontalOptions="Center" Text="Content" />
             </VerticalStackLayout>
         </lingo:LingoistLayoutBase.LayoutContent>
 
         <lingo:LingoistLayoutBase.FooterContent>
             <!-- Change this to accept ILingoistFooterView -->
-            <ContentView>
-                <Label Text="Footer" />
+            <ContentView VerticalOptions="Start" Background="#232323">
+                <VerticalStackLayout Padding="20" Spacing="10">
+                    <Label Text="Footer" />
+
+                    <Button Text="Continue" Clicked="OnNextClicked" />
+                </VerticalStackLayout>
             </ContentView>
         </lingo:LingoistLayoutBase.FooterContent>
-        
+
     </lingo:LingoistLayoutBase>
 </ContentView>

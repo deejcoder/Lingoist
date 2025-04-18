@@ -2,6 +2,8 @@
 using Lingoist.Mobile.Plugins.Audio;
 using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
+using Lingoist.Mobile.UI.Extensions;
+using Lingoist.Mobile.Pages;
 
 namespace Lingoist.Mobile
 {
@@ -19,6 +21,9 @@ namespace Lingoist.Mobile
                 });
 
             builder.AddAudio();
+            builder.AddLingoNavigation();
+            builder.AddLingoPage<AddEditPracticeSetPage>();
+            
             builder.Services.AddSingleton<Lingoist.Mobile.Plugins.Audio.IAudioPlayer, Plugins.Audio.AudioPlayer>();
             builder.Services.AddTransient<TextToSpeechService>();
 #if DEBUG

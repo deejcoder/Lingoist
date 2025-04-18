@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Lingoist.Mobile.UI.LayoutBlocks"
              x:Class="Lingoist.Mobile.UI.LayoutBlocks.LingoistLayoutHeader"
              x:Name="this">
-    <HorizontalStackLayout>
-        <Label Text="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutHeader}" />
+    <HorizontalStackLayout Padding="10,6">
+        <Label FontSize="18" Text="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutHeader}" />
     </HorizontalStackLayout>
 </ContentView>

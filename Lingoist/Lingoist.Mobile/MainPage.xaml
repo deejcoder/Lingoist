@@ -1,10 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<lingo:LingoistPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:lingo="http://lingoist.io/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lingoist.Mobile.MainPage"
-             x:Name="this">
+             x:Name="this"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             HandlerProperties.DisconnectPolicy="Manual">
 
-    <lingo:LingoistSlidablePageHost Page="{Binding PageHost.Current, Source={x:Reference this}}" />
-    
-</lingo:LingoistPage>
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- TODO: add an option to keep the current nav bar visible -->
+        <HorizontalStackLayout Grid.Row="0">
+            <lingo:LingoistLayoutHeader Title="Main Navigation" />
+        </HorizontalStackLayout>
+        
+        <lingo:LingoPagedLayout Grid.Row="1" Navigator="{Binding Navigator, Source={x:Reference this}}" />
+        
+    </Grid>
+
+</ContentPage>

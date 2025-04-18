@@ -1,28 +1,42 @@
 ﻿using Lingoist.Mobile.Application.Features.TextToSpeech;
 using Lingoist.Mobile.Pages;
 using Lingoist.Mobile.Plugins.Audio;
-using Lingoist.Mobile.UI.Pages;
+using Lingoist.Mobile.UI.Pages.Abstraction;
+using Lingoist.Mobile.UI.Pages.Navigation;
 
 namespace Lingoist.Mobile
 {
-    public partial class MainPage : LingoistPage
+    public partial class MainPage : ContentPage
     {
         private readonly IAudioPlayer Player;
-        private readonly TextToSpeechService Tts;
-        public LingoistPageHost PageHost { get; set; } = new();
+        private readonly TextToSpeechService Tts;        
+        public ILingoNavigator Navigator { get; set; }
 
-        public MainPage(IAudioPlayer player, TextToSpeechService tts)
+        public MainPage(ILingoNavigator navigator, IAudioPlayer player, TextToSpeechService tts)
         {
+            this.Navigator = navigator;
             this.Player = player;
             this.Tts = tts;
+
             InitializeComponent();
+        }
 
-            Dispatcher.Dispatch(async () =>
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+
+            if(Parent != null)
             {
-                await Task.Delay(2000);
+                Dispatcher.Dispatch(async () =>
+                {
+                    await Task.Delay(2000);
 
-                await PageHost.NavigateTo<AddEditPracticeSetPage>(null);
-            });
+                    await Navigator.NavigateToAsync<AddEditPracticeSetPage>(new LingoistNavigationOptions()
+                    {
+                        Recycle = true,
+                    });
+                });
+            }
         }
 
         private async void TranscribeClicked(object sender, EventArgs e)
