@@ -4,8 +4,6 @@ namespace Lingoist.Mobile.UI.LayoutBlocks;
 
 public partial class LingoistLayoutFooter : ContentView
 {
-    private bool _animateInRequested;
-
     public static readonly BindableProperty FooterContentProperty =
         BindableProperty.Create(nameof(FooterContent), typeof(View), typeof(LingoistLayoutFooter), null, propertyChanged: FooterContentPropertyChanged);
 
@@ -46,29 +44,15 @@ public partial class LingoistLayoutFooter : ContentView
         {
             bool isVisible = (bool)newValue;
 
-            control.FooterContentContainer.IsVisible = isVisible;
-            //control.FooterContent.IsVisible = isVisible;
-
             if (isVisible)
             {
-                // wait for the size to be updated before triggering the animation
-                control._animateInRequested = true;
-                control.AnimateOnAppearing();
+                _ = control.ShowAsync();
             }
             else
             {
-                control.AnimateOnDisappearing();
+                _ = control.HideAsync();
             }
         }
-    }
-
-    public static readonly BindableProperty EnableAnimationsProperty =
-        BindableProperty.Create(nameof(EnableAnimations), typeof(bool), typeof(LingoistLayoutFooter), true);
-
-    public bool EnableAnimations
-    {
-        get => (bool)GetValue(EnableAnimationsProperty);
-        set => SetValue(EnableAnimationsProperty, value);
     }
 
     public LingoistLayoutFooter()
@@ -91,7 +75,7 @@ public partial class LingoistLayoutFooter : ContentView
         {
             FooterContentContainer.Content = FooterContent;
             FooterContentContainer.Content.IsVisible = IsFooterVisible;
-            FooterContentContainer.IsVisible = IsFooterVisible;
+            this.IsVisible = IsFooterVisible;
         }
     }
 
@@ -100,55 +84,51 @@ public partial class LingoistLayoutFooter : ContentView
         base.OnParentSet();
     }
 
-    private void AnimateOnAppearing()
+    public async Task ShowAsync(bool overlay = false, bool animate = true)
     {
-        if (FooterContent == null || Parent == null || !_canAnimateFooter) return;
+        if (FooterContent == null || Parent == null) return;
 
-        if (!EnableAnimations)
-            return;
-
-        this.Dispatcher.Dispatch(async () =>
+        await this.Dispatcher.DispatchAsync(async () =>
         {
-            _animateInRequested = false;
+            if (overlay) FooterContentContainer.ZIndex = 1002;
+            this.IsVisible = true;
 
-            // Start the footer off-screen (below the visible area)
-            if (this.Parent is View parentView)
+            if(animate)
             {
-                FooterContentContainer.TranslationY = parentView.Height;
+                // Start the footer off-screen (below the visible area)
+                if (this.Parent is View parentView)
+                {
+                    FooterContentContainer.TranslationY = parentView.Height;
+                }
             }
+
             FooterContent.IsVisible = true;
 
-            // Animate it to its original position
-            await FooterContentContainer.TranslateTo(0, 0, 600, Easing.CubicIn);
-        });
-    }
-
-    private void AnimateOnDisappearing()
-    {
-        if (FooterContent == null || Parent == null || !_canAnimateFooter) return;
-
-        if (!EnableAnimations)
-            return;
-
-        this.Dispatcher.Dispatch(async () =>
-        {
-            if (FooterContentContainer != null)
+            if(animate)
             {
-                // Animate the footer to move off-screen (below the visible area)
-                await FooterContent.TranslateTo(0, FooterContentContainer.Height, 600, Easing.CubicIn);
-
-                // Optionally, hide the footer after the animation
-                FooterContentContainer.IsVisible = false;
+                // Animate it to its original position
+                await FooterContentContainer.TranslateTo(0, 0, 600, Easing.BounceIn);
             }
         });
     }
 
-    private bool _canAnimateFooter = false;
-
-    private void OnContainerParentChanged(object sender, EventArgs e)
+    public async Task HideAsync(bool animate = true)
     {
-        _canAnimateFooter = true;
+        if (FooterContent == null || Parent == null) return;
 
-        if (_animateInRequested) AnimateOnAppearing();
+        await this.Dispatcher.DispatchAsync(async () =>
+        {
+            if(animate)
+            {
+                // Animate the footer to move off-screen (below the visible area)
+                if (this.Parent is View parentView)
+                {
+                    await FooterContentContainer.TranslateTo(0, parentView.Height, 600, Easing.BounceOut);
+                }
+            }
+
+            this.IsVisible = false;
+            FooterContentContainer.ZIndex = 0;
+        });
     }
 }

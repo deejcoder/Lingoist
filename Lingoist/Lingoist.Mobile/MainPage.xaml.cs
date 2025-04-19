@@ -31,10 +31,12 @@ namespace Lingoist.Mobile
                 {
                     await Task.Delay(2000);
 
-                    await Navigator.NavigateToAsync<AddEditPracticeSetPage>(new LingoistNavigationOptions()
+                    AddEditPracticeSetPageState state = new()
                     {
-                        Recycle = true,
-                    });
+                        Index = 0
+                    };
+
+					await Navigator.NavigateToAsync<AddEditPracticeSetPage, AddEditPracticeSetPageState>(state, LingoPageAnimation.SlideFromRight);
                 });
             }
         }

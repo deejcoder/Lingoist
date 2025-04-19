@@ -4,5 +4,7 @@
     {
         None = 0,
         SlideFromRight,
+        SlideFromLeft,
+        SlideFromBottom,
     }
 }

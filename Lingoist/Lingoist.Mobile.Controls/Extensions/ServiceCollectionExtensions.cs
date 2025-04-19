@@ -11,13 +11,15 @@ namespace Lingoist.Mobile.UI.Extensions
             builder.Services.AddSingleton<ILingoNavigator, LingoNavigator>();
         }
 
-        public static void AddLingoPage<TPage>(this MauiAppBuilder builder) where TPage : class, ILingoPage
+        public static void AddLingoPage<TPage>(this MauiAppBuilder builder, LingoPageOptions? options = default) where TPage : class, ILingoPage
         {
+            options ??= new LingoPageOptions();
+
             // Register the page with the service collection
             builder.Services.AddTransient<TPage>();
 
             // Register the page with the registry
-            LingoistPageRegistry.Register<TPage>();
+            LingoPageRegistry.Register<TPage>(options);
         }
     }
 }

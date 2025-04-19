@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:lingo="http://lingoist.io/maui"
+             x:Name="this"
              x:Class="Lingoist.Mobile.Pages.AddEditPracticeSetPage">
 
     <!-- Rename to LingoistLayout -->
@@ -11,9 +12,19 @@
 
         <lingo:LingoistLayoutBase.LayoutContent>
             <!-- Change this to accept ILingoistLayoutView-->
-            <VerticalStackLayout VerticalOptions="Start" >
-                <Label HorizontalOptions="Center" Text="Content" />
-            </VerticalStackLayout>
+            <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
+                <HorizontalStackLayout Grid.Row="0">
+                    <Label HorizontalOptions="Center" Text="{Binding ContentDisplay, Source={x:Reference this}}" />
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1">
+
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="2" RowDefinitions="Auto" Padding="20">
+                    <Button Text="Check" Clicked="OnCheckClicked" />
+                </Grid>
+            </Grid>
         </lingo:LingoistLayoutBase.LayoutContent>
 
         <lingo:LingoistLayoutBase.FooterContent>
@@ -22,7 +33,10 @@
                 <VerticalStackLayout Padding="20" Spacing="10">
                     <Label Text="Footer" />
 
-                    <Button Text="Continue" Clicked="OnNextClicked" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="24">
+                        <Button Text="Previous" Clicked="OnPreviousClicked" />
+                        <Button Grid.Column="1" Text="Next" Clicked="OnNextClicked" />
+                    </Grid>
                 </VerticalStackLayout>
             </ContentView>
         </lingo:LingoistLayoutBase.FooterContent>

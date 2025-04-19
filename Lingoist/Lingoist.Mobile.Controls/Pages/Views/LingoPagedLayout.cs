@@ -1,4 +1,7 @@
+using Lingoist.Mobile.UI.Extensions;
 using Lingoist.Mobile.UI.Pages.Abstraction;
+using Lingoist.Mobile.UI.Pages.Models;
+using Lingoist.Mobile.UI.Pages.Registry;
 using Lingoist.Mobile.UI.Pages.Views;
 using Microsoft.Maui.Layouts;
 
@@ -65,7 +68,30 @@ public class LingoPagedLayout : Layout, IDisposable
         return null;
     }
 
-    internal async Task MoveNextAsync(ILingoPage next, LingoPageAnimation animation, bool isRecycled = false)
+    internal ILingoPage? GetPreviousPage()
+    {
+        if (_pages.Count > 1)
+        {
+            for(int idx = _pages.Count - 2; idx > 0; idx--)
+            {
+                ILingoPage page = _pages[idx];
+
+                LingoPageDescriptor descriptor = LingoPageRegistry.GetPageDescriptor(page.GetType());
+
+                // recyclable pages do not support back navigation
+                if(descriptor.Recycle)
+                {
+                    continue;
+                }
+
+                return page;
+            }
+        }
+
+        return null;
+    }
+
+    internal async Task MoveToAsync(ILingoPage next, LingoPageAnimation animation)
     {
         ILingoPage? current = _pages.LastOrDefault();
 
@@ -91,16 +117,7 @@ public class LingoPagedLayout : Layout, IDisposable
 
                         nextView.TranslationX = width;
 
-                        if (isRecycled)
-                        {
-                            // we need to move the page last, this is mostly so events like OnParentSet are still fired
-                            this.Children.Remove(next);
-                            this.Children.Add(next);
-                        }
-                        else
-                        {
-                            this.Children.Add(next);
-                        }
+                        this.Children.Add(next);
 
                         nextView.ZIndex = 1000;
                         nextView.IsVisible = true;
@@ -108,7 +125,46 @@ public class LingoPagedLayout : Layout, IDisposable
 
                         if (current != null && current is View currentView)
                         {
-                            //await currentView.TranslateTo(-width / 2, 0, 300, Easing.CubicIn);
+                            currentView.IsVisible = false;
+                        }
+                    }
+                    break;
+
+                case LingoPageAnimation.SlideFromBottom:
+                    {
+                        var height = this.Height;
+
+                        nextView.TranslationY = height;
+
+                        this.Children.Add(next);
+
+                        nextView.ZIndex = 1000;
+                        nextView.IsVisible = true;
+
+                        await nextView.TranslateTo(0, 0, 400, Easing.CubicOut);
+
+                        if (current != null && current is View currentView)
+                        {
+                            currentView.IsVisible = false;
+                        }
+                    }
+                    break;
+
+                case LingoPageAnimation.SlideFromLeft:
+                    {
+                        var width = this.Width;
+
+                        nextView.TranslationX = -width;
+
+                        this.Children.Add(next);
+
+                        nextView.ZIndex = 1000;
+                        nextView.IsVisible = true;
+
+                        await nextView.TranslateTo(0, 0, 400, Easing.CubicOut);
+
+                        if (current != null && current is View currentView)
+                        {
                             currentView.IsVisible = false;
                         }
                     }
@@ -116,9 +172,42 @@ public class LingoPagedLayout : Layout, IDisposable
             }
 
             nextView.ZIndex = 0;
+
+            // remove the previous page now that navigation has completed
+            if (current != null)
+            {
+                this.Children.Remove(current);
+
+                if (current is View currentView)
+                {
+                    currentView.BindingContext = null;
+                }
+            }
         }
 
-        _pages.Add(next);
+        if (!_pages.Contains(next))
+        {
+            _pages.Add(next);
+        }
+
+        // if "next" is a previous page, destroy future pages
+        if (_pages.IndexOf(next) < _pages.Count - 1)
+        {
+            DestroyFuturePages(next);
+        }
+    }
+
+    private void DestroyFuturePages(ILingoPage current)
+    {
+        int currentIndex = _pages.IndexOf(current);
+
+        // remove all pages after the current page
+        for (int i = _pages.Count - 1; i > currentIndex; i--)
+        {
+            var page = _pages[i];            
+            page.DestroyView();
+            _pages.Remove(page);
+        }
     }
 
     public void Dispose()

@@ -6,7 +6,7 @@
              x:Name="this"
              x:Class="Lingoist.Mobile.UI.Layouts.LingoistLayoutBase">
     
-    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="20">
+    <Grid RowDefinitions="Auto,*,Auto">
 
         <!-- Header -->
         <blocks:LingoistLayoutHeader Grid.Row="0" Title="{Binding Title, Source={x:Reference this}, x:DataType=local:LingoistLayoutBase}" />
@@ -17,7 +17,9 @@
         </Grid>
         
         <!-- Footer -->
-        <blocks:LingoistLayoutFooter Grid.Row="2" 
+        <blocks:LingoistLayoutFooter x:Name="LingoistLayoutFooter" 
+                                     Grid.Row="2"
+                                     VerticalOptions="End"
                                      IsFooterVisible="{Binding IsFooterVisible, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" 
                                      FooterContent="{Binding FooterContent, Source={x:Reference this, x:DataType=local:LingoistLayoutBase}}" />
     </Grid>
