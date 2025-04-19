@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lingo="http://lingoist.io/maui"
+             x:Class="Lingoist.Mobile.Pages.PracticeSetFinishedPage">
+
+    <lingo:LingoistLayoutBase Title="Summary" x:Name="layout" IsFooterVisible="True" Background="#3B3B3B">
+
+        <lingo:LingoistLayoutBase.LayoutContent>
+
+            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
+                <HorizontalStackLayout Grid.Row="0">
+                    <Label HorizontalOptions="Center" Text="Great job! You're finished with this set" />
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1">
+
+                </VerticalStackLayout>
+
+            </Grid>
+        </lingo:LingoistLayoutBase.LayoutContent>
+
+        <lingo:LingoistLayoutBase.FooterContent>
+
+            <ContentView VerticalOptions="Start" Background="#232323">
+                <VerticalStackLayout Padding="20" Spacing="10">
+                    <Grid RowDefinitions="Auto">
+                        <Button Text="Finish" Clicked="OnFinishedClicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </ContentView>
+            
+        </lingo:LingoistLayoutBase.FooterContent>
+
+    </lingo:LingoistLayoutBase>
+    
+</ContentView>

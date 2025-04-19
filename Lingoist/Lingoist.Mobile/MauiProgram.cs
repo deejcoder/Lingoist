@@ -23,7 +23,8 @@ namespace Lingoist.Mobile
             builder.AddAudio();
             builder.AddLingoNavigation();
             builder.AddLingoPage<AddEditPracticeSetPage>();
-            
+            builder.AddLingoPage<PracticeSetFinishedPage>();
+
             builder.Services.AddSingleton<Lingoist.Mobile.Plugins.Audio.IAudioPlayer, Plugins.Audio.AudioPlayer>();
             builder.Services.AddTransient<TextToSpeechService>();
 #if DEBUG

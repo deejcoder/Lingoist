@@ -44,8 +44,15 @@ public partial class AddEditPracticeSetPage : ContentView, ILingoStatefulPage<Ad
 		this.BackgroundColor = Color.FromArgb(randomDarkShade);
 	}
 
-	private void OnNextClicked(object sender, EventArgs e)
+	private async void OnNextClicked(object sender, EventArgs e)
 	{
+		if(CurrentIndex == 5)
+		{
+			// Simulate being done with the set, final landing page
+			await this.Navigator.NavigateToAsync<PracticeSetFinishedPage>(LingoPageAnimation.SlideFromBottom);
+			return;
+		}
+
 		// Pick a random animation
 		LingoPageAnimation[] possibleAnimations = [
 			LingoPageAnimation.SlideFromRight,
@@ -60,7 +67,7 @@ public partial class AddEditPracticeSetPage : ContentView, ILingoStatefulPage<Ad
 			Index = CurrentIndex + 1
 		};
 
-		this.Navigator.NavigateToAsync<AddEditPracticeSetPage, AddEditPracticeSetPageState>(state, animation);
+		await this.Navigator.NavigateToAsync<AddEditPracticeSetPage, AddEditPracticeSetPageState>(state, animation);
 	}
 
 	protected override void OnParentSet()
