@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.ApiClient", "Lingo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.Mobile.Application", "Lingoist.Mobile.Application\Lingoist.Mobile.Application.csproj", "{0A537F1A-DED3-4FD1-8E0F-07E4614F89D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.Mobile.UI", "Lingoist.Mobile.Controls\Lingoist.Mobile.UI.csproj", "{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingoist.Mobile.UI", "Lingoist.Mobile.UI\Lingoist.Mobile.UI.csproj", "{7937EEB2-56AB-47DA-8B22-C95468E9A2E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{EDE28733-EDF0-406F-99DE-49596C1FD341}"
 EndProject

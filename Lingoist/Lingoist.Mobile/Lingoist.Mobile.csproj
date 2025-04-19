@@ -70,7 +70,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Lingoist.ApiClient\Lingoist.ApiClient.csproj" />
 	  <ProjectReference Include="..\Lingoist.Mobile.Application\Lingoist.Mobile.Application.csproj" />
-	  <ProjectReference Include="..\Lingoist.Mobile.Controls\Lingoist.Mobile.UI.csproj" />
+	  <ProjectReference Include="..\Lingoist.Mobile.UI\Lingoist.Mobile.UI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
