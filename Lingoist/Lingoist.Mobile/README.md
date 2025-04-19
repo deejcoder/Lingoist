@@ -25,3 +25,5 @@ To navigate to stateless pages:
 ```csharp
 Navigator.NavigateToAsync<MyPage>(LingoPageAnimation.SlideFromBottom);
 ```
+
+![demo](https://i.imgur.com/s3RdYpy.gif)
